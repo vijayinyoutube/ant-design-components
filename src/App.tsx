@@ -1,11 +1,13 @@
-import { Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-import React from "react";
+import React, { useState } from "react";
 import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
 
 const App = () => {
@@ -26,17 +28,26 @@ const App = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <div>
       <Layout className="h-screen">
         <Sider
-        trigger={<></>}
+          collapsed={collapsed}
+          collapsible
+          trigger={null}
           reverseArrow={true}
           width={250}
           breakpoint="md"
           collapsedWidth="0"
           onBreakpoint={(broken) => {
-            console.log(broken);
+            console.log("broken", broken);
+            if (broken) {
+              setCollapsed(true);
+            } else {
+              setCollapsed(false);
+            }
           }}
           onCollapse={(collapsed, type) => {
             console.log(collapsed, type);
@@ -51,7 +62,20 @@ const App = () => {
           />
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }} />
+          <Header style={{ padding: 0, background: colorBgContainer }}>
+            {collapsed && (
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                }}
+              />
+            )}
+          </Header>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               className="h-full"
