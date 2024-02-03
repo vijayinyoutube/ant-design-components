@@ -1,6 +1,6 @@
-import { Menu, Drawer } from "antd";
+import { Menu, Drawer, Button, Flex } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   collapsed?: boolean;
@@ -26,25 +26,27 @@ const ResponsiveSlider = (props: Props) => {
     items,
     setBroken,
     open,
-    setOpen,
-    showDrawer,
     closeDrawer,
   } = props;
 
   return (
     <div>
+      {/* Slider Component : Web View */}
       <Sider
         className="hidden h-full sm:block"
         collapsed={collapsed}
         reverseArrow={true}
         breakpoint="md"
-        collapsedWidth="50"
+        collapsedWidth="55"
         onBreakpoint={(brokenVal) => {
+          console.log("Broken:", brokenVal);
+          if (!brokenVal) {
+            closeDrawer();
+          }
           setBroken(brokenVal);
           setCollapsed(brokenVal);
         }}
         onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
           setCollapsed(collapsed);
         }}
       >
@@ -62,6 +64,8 @@ const ResponsiveSlider = (props: Props) => {
           items={items}
         />
       </Sider>
+
+      {/* Drawer Component : Mobile View */}
       <Drawer
         width={225}
         className="!bg-[#001529] !text-white"
@@ -73,7 +77,20 @@ const ResponsiveSlider = (props: Props) => {
       >
         <div>
           {items?.map((item) => {
-            return <div className="p-3 text-white">{item.label}</div>;
+            return (
+              <Flex vertical>
+                <Flex>
+                  {item.icon}
+                  <Button
+                    size="large"
+                    className="my-1 border-0 text-left text-sm text-white hover:bg-blue-600 hover:!text-white"
+                    onClick={closeDrawer}
+                  >
+                    {item.label}
+                  </Button>
+                </Flex>
+              </Flex>
+            );
           })}
         </div>
       </Drawer>
