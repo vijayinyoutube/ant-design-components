@@ -1,8 +1,9 @@
 import { Layout, Button } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
-import ResponsiveSlider from "../Components/ResponsiveSlider";
+import ResponsiveSlider from "../../Components/ResponsiveSlider";
 import AdminPanelService from "./adminpanel.service";
+import Router from "../Routes/route";
 
 const AdminPanel = () => {
   const { Header, Content, Footer } = Layout;
@@ -19,22 +20,28 @@ const AdminPanel = () => {
     setOpen,
     showDrawer,
     closeDrawer,
+    currentRoute,
+    setCurrentRoute,
+    routes,
   } = AdminPanelService();
 
   return (
     <div>
-      <Layout className="h-screen">
+      <Layout className="h-screen" hasSider={true}>
         {/* Responsive Slider : Slider for web | Drawer for mobile */}
         <ResponsiveSlider
-          collapsed={collapsed}
-          setCollapsed={setCollapsed}
-          broken={broken}
-          setBroken={setBroken}
-          items={items}
           open={open}
+          items={items}
+          broken={broken}
+          collapsed={collapsed}
+          currentRoute={currentRoute}
+          routes={routes}
           setOpen={setOpen}
+          setBroken={setBroken}
           showDrawer={showDrawer}
           closeDrawer={closeDrawer}
+          setCollapsed={setCollapsed}
+          setCurrentRoute={setCurrentRoute}
         />
 
         <Layout>
@@ -69,17 +76,10 @@ const AdminPanel = () => {
             </div>
           </Header>
           <Content style={{ margin: "24px 16px 0" }}>
-            <div
-              className="h-full"
-              style={{
-                padding: 24,
-                minHeight: 360,
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
-              }}
-            >
-              content
-            </div>
+            <Router
+              colorBgContainer={colorBgContainer}
+              borderRadiusLG={borderRadiusLG}
+            />
           </Content>
           <Footer style={{ textAlign: "center" }} className="bottom-0">
             Ant Design ©{new Date().getFullYear()} Created by Ant UED

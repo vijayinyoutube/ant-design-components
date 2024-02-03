@@ -1,5 +1,4 @@
-import AdminPanel from "./Presentation/Screens/adminpanel";
-
+import AdminPanel from "./Presentation/Screens/AdminDashboard/adminpanel";
 
 const App = () => {
   return (

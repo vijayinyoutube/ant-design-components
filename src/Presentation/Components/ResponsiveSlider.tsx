@@ -1,6 +1,9 @@
-import { Menu, Drawer, Button, Flex } from "antd";
+import { Menu, Drawer, Button, Flex, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const { Text } = Typography;
 
 interface Props {
   collapsed?: boolean;
@@ -10,12 +13,16 @@ interface Props {
     key: string;
     icon: React.ReactElement;
     label: string;
+    routes: string;
   }[];
   setBroken: Dispatch<SetStateAction<boolean>>;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   showDrawer: () => void;
   closeDrawer: () => void;
+  currentRoute: string;
+  routes: string[];
+  setCurrentRoute: Dispatch<SetStateAction<string>>;
 }
 
 const ResponsiveSlider = (props: Props) => {
@@ -27,7 +34,12 @@ const ResponsiveSlider = (props: Props) => {
     setBroken,
     open,
     closeDrawer,
+    currentRoute,
+    routes,
+    setCurrentRoute,
   } = props;
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div>
@@ -50,17 +62,21 @@ const ResponsiveSlider = (props: Props) => {
           setCollapsed(collapsed);
         }}
       >
-        <div className="demo-logo-vertical" />
+        <div className="ml-8 mt-5 hidden md:block">
+          <Text className="text-white">vijaycreations</Text>
+        </div>
         <Menu
+          className="pt-6"
           theme="dark"
           mode="inline"
           onClick={(e) => {
-            console.log(e);
             if (broken) {
               setCollapsed(true);
             }
+            navigate(items ? items[parseInt(e.key) - 1].routes : "/");
+            setCurrentRoute(items ? items[parseInt(e.key) - 1].routes : "/");
           }}
-          defaultSelectedKeys={["4"]}
+          defaultSelectedKeys={[String(routes.indexOf(location.pathname) + 1)]}
           items={items}
         />
       </Sider>

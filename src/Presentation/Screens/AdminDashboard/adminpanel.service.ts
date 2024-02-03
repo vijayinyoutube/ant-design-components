@@ -9,6 +9,11 @@ import {
 const AdminPanelService = () => {
   const [broken, setBroken] = useState(false);
 
+  const [currentRoute, setCurrentRoute] = useState("/dashboard");
+
+  const menuNames = ["Dashboard", "Content", "Settings", "Profile"];
+  const routes = ["/dashboard", "/content", "/settings", "/profile"];
+
   const items = [
     UserOutlined,
     VideoCameraOutlined,
@@ -17,7 +22,8 @@ const AdminPanelService = () => {
   ].map((icon, index) => ({
     key: String(index + 1),
     icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
+    label: menuNames[index],
+    routes: routes[index],
   }));
 
   const {
@@ -48,6 +54,9 @@ const AdminPanelService = () => {
     setOpen,
     showDrawer,
     closeDrawer,
+    currentRoute,
+    setCurrentRoute,
+    routes,
   };
 };
 
