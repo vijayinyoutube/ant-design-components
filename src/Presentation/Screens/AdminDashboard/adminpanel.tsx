@@ -44,7 +44,7 @@ const AdminPanel = () => {
           setCurrentRoute={setCurrentRoute}
         />
 
-        <Layout>
+        <Layout >
           <Header style={{ padding: 0, background: colorBgContainer }}>
             <div className="hidden sm:block">
               {collapsed && (

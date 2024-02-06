@@ -1,4 +1,4 @@
-import { Menu, Drawer, Button, Flex, Typography } from "antd";
+import { Menu, Drawer, Button, Flex, Typography, ConfigProvider } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -49,6 +49,7 @@ const ResponsiveSlider = (props: Props) => {
         collapsed={collapsed}
         reverseArrow={true}
         breakpoint="md"
+        width={250}
         collapsedWidth="55"
         onBreakpoint={(brokenVal) => {
           console.log("Broken:", brokenVal);
@@ -91,21 +92,22 @@ const ResponsiveSlider = (props: Props) => {
         onClose={closeDrawer}
         open={open}
       >
-        <div>
+        <div className="">
           {items?.map((item) => {
             return (
-              <Flex vertical>
-                <Flex>
-                  {item.icon}
-                  <Button
-                    size="large"
-                    className="my-1 border-0 text-left text-sm text-white hover:bg-blue-600 hover:!text-white"
-                    onClick={closeDrawer}
-                  >
-                    {item.label}
-                  </Button>
-                </Flex>
-              </Flex>
+              <div className="">
+                <Button
+                  icon={item.icon}
+                  size="large"
+                  className="my-1 ml-0 w-full  border-0 text-left text-sm text-white hover:bg-blue-600 hover:!text-white"
+                  onClick={() => {
+                    navigate(item.routes);
+                    closeDrawer();
+                  }}
+                >
+                  {item.label}
+                </Button>
+              </div>
             );
           })}
         </div>

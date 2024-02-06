@@ -11,8 +11,8 @@ const AdminPanelService = () => {
 
   const [currentRoute, setCurrentRoute] = useState("/dashboard");
 
-  const menuNames = ["Dashboard", "Content", "Settings", "Profile"];
-  const routes = ["/dashboard", "/content", "/settings", "/profile"];
+  const menuNames = ["Dashboard", "Contact", "Settings", "Profile"];
+  const routes = ["/dashboard", "/contact", "/settings", "/profile"];
 
   const items = [
     UserOutlined,

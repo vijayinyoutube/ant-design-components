@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import ProfileScreen from "../Profile/profile";
 import AdminScreen from "../AdminDashboard/adminScreen";
+import { Content } from "antd/es/layout/layout";
+import Settings from "../Settings/settings";
+import Contact from "../Contact/contact";
 
 const Router = (props: {
   colorBgContainer: string;
@@ -9,7 +12,7 @@ const Router = (props: {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/dashboard"
         element={
           <AdminScreen
             colorBgContainer={props.colorBgContainer}
@@ -17,6 +20,8 @@ const Router = (props: {
           />
         }
       />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="/profile" element={<ProfileScreen />} />
     </Routes>
   );

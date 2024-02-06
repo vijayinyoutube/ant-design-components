@@ -12,7 +12,7 @@ const AdminScreen = (props: {
         borderRadius: props.borderRadiusLG,
       }}
     >
-      content
+      Admin Dashboard
     </div>
   );
 };
